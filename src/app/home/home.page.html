@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="danger">
+    <ion-title>
+      Lista de contactos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" >
+  <div id="container">
+
+   <h2>Agregar contacto</h2>
+   <ion-input [(ngModel)]="inputNom" placeholder="Ingrese el nombre">Nombre:</ion-input>
+   <ion-input [(ngModel)]="inputTel" placeholder="Ingrese un numero telfeonico">Telefono</ion-input>
+   <ion-input [(ngModel)]="inputEmail" placeholder="Ingrese un email">Email</ion-input>
+   <ion-input [(ngModel)]="inputNotas" placeholder="Ingrese alguna nota">Notas</ion-input>
+   <p *ngIf="errorValidacion==true" style="color: red;">Es obligatorio ingresar todos los campos</p>
+   <ion-button (click)="presentAlertConfirm()" expand="block"><ion-icon name="add-circle-outline"></ion-icon></ion-button>
+
+   <p *ngIf="personas.length==0">No se han añadido contactos</p>
+    <ion-item *ngIf="personas.length!=0">
+      <ion-label>Ver notas</ion-label>
+      <ion-toggle [(ngModel)]="verNotas"></ion-toggle>
+    </ion-item>
+   <ul>
+     <li *ngFor="let persona of personas; let i=index">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle></ion-card-subtitle>
+            <!--<ion-card-title>Persona {{i+1}}</ion-card-title>-->
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>Nombre: {{personas[i].nombre}}</p>
+            <p>Telefono: {{personas[i].telefono}}</p>
+            <p>e-mail: {{personas[i].email}}</p>
+            <p *ngIf="verNotas==true">Notas: {{personas[i].notas}}</p>
+            <ion-button (click)="eliminarConfirm(i)">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+     </li>
+   </ul>
+
+  </div>
+</ion-content>
